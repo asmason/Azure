@@ -18,7 +18,7 @@
             "value": "prd-vn-hub-1-trusted-1"
         },
         "trustedSubnetIpPrefixString": {
-            "value": "172.16.1."
+            "value": "172.18.3."
         },
         "trustedFirstIpHostString": {
             "value": "36"
@@ -27,16 +27,19 @@
             "value": "prd-vn-hub-1-untrusted-1"
         },
         "untrustedSubnetIpPrefixString": {
-            "value": "172.16.2."
+            "value": "172.18.2."
         },
         "untrustedFirstIpHostString": {
             "value": "68"
         },
         "trustedLoadBalancerIPAddress":{
-            "value": "172.16.1.40"
+            "value": "172.18.3.40"
         },
         "vmSize": {
             "value": "Standard_B2s"
+        },
+        "diagnosticsStorageAccount": {
+            "value": "shuprdsadiagapps1"
         }
     }
 }

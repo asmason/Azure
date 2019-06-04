@@ -88,7 +88,7 @@
         },
         "diagnosticsStorageAccount": {
             "type": "string",
-            "defaultValue": "shusabootdiag1",
+            "defaultValue": "",
             "metadata": {
                 "description": "Name of the storage account to use for diagnostics."
             }
