@@ -39,7 +39,7 @@
             "value": "Standard_B2s"
         },
         "diagnosticsStorageAccount": {
-            "value": "shuprdsadiagapps1"
+            "value": "asmprdsadiaghub1"
         }
     }
 }
