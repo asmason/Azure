@@ -2,7 +2,7 @@ Add-AzureRmAccount
 
 $subscriptionId = '935e6bd0-1a03-4fe6-8d8d-d1ecfd5a670b'
 $resourceGroupName = 'rg-prd-aa-hub-1'
-$location = 'northeurope'
+$location = 'westeurope' # northeurope does not support linking AutomationAccounts to LogAnalytics workspaces
 $templateFile = 'azuredeploy.json'
 $templateParameterFile = 'azuredeploy.prd-hub-1.parameters.json'
 

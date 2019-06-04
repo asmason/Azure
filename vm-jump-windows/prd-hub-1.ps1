@@ -1,4 +1,4 @@
-#Add-AzureRmAccount
+cd..#Add-AzureRmAccount
 
 $subscriptionId = '935e6bd0-1a03-4fe6-8d8d-d1ecfd5a670b'
 $resourceGroupName = 'rg-prd-vm-mgt-1'

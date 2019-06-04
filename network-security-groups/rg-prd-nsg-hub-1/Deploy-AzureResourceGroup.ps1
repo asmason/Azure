@@ -4,7 +4,7 @@ Param(
     [string] [Parameter(Mandatory=$true)] $ResourceGroupLocation,
     [string] $ResourceGroupName = 'rg-prd-nsg-hub-1',
     [switch] $UploadArtifacts,
-    [string] $StorageAccountName,
+    [string] $StorageAccountName = 'asmprdsamgt1',
     [string] $StorageContainerName = $ResourceGroupName.ToLowerInvariant() + '-rg-prd-nsg-hub-1',
     [string] $TemplateFile = 'azuredeploy.json',
     [string] $TemplateParametersFile = 'azuredeploy.parameters.json',

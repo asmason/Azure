@@ -10,7 +10,7 @@
         },
         "omsWorkspaceRegion": {
             "type": "string",
-            "defaultValue": "North Europe",
+            "defaultValue": "West Europe",
             "allowedValues": [
                 "Australia Southeast",
                 "East US",

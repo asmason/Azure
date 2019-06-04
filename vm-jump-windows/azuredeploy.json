@@ -164,14 +164,14 @@
         },
         "diagnosticsStorageAccount": {
             "type": "string",
-            "defaultValue": "shuprdsadiaghub1",
+            "defaultValue": "",
             "metadata": {
                 "description": "Name of the storage account to use for diagnostics."
             }
         },
         "artifactsLocation": {
             "type": "string",
-            "defaultValue": "https://shuprdsamgt1.blob.core.windows.net/deployment/",
+            "defaultValue": "https://asmprdsamgt1.blob.core.windows.net/deployment/",
             "metadata": {
                 "description": "The location for file dependencies."
             }
