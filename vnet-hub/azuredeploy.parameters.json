@@ -52,7 +52,7 @@
             "value": "prd-vn-hub-1-cn-1"
         },
         "vpnGatewaySharedKey": {
-            "value": "xxx"
+            "value": "12345"
         },
         "vpnType": {
             "value": "RouteBased"

@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
       "storageAccountName": {
-        "value": "shuprdsadiagapps1"
+        "value": "asmprdsadiagapps1"
       },
       "storageAccountTier": {
         "value": "Standard"

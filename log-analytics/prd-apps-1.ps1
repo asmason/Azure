@@ -1,10 +1,10 @@
 Add-AzureRmAccount
 
 $subscriptionId = '935e6bd0-1a03-4fe6-8d8d-d1ecfd5a670b'
-$resourceGroupName = 'rg-pre-vn-apps-1'
+$resourceGroupName = 'rg-prd-log-apps-1'
 $location = 'northeurope'
 $templateFile = 'azuredeploy.json'
-$templateParameterFile = 'azuredeploy.pre-apps-1.parameters.json'
+$templateParameterFile = 'azuredeploy.prd-apps-1.parameters.json'
 
 Select-AzureRmSubscription -Subscription $subscriptionId
 

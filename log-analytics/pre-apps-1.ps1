@@ -4,7 +4,7 @@ $subscriptionId = '935e6bd0-1a03-4fe6-8d8d-d1ecfd5a670b'
 $resourceGroupName = 'rg-pre-log-apps-1'
 $location = 'northeurope'
 $templateFile = 'azuredeploy.json'
-$templateParameterFile = 'azuredeploy.pre.parameters.json'
+$templateParameterFile = 'azuredeploy.pre-apps-1.parameters.json'
 
 Select-AzureRmSubscription -Subscription $subscriptionId
 

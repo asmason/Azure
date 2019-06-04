@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "omsWorkspaceName": {
-            "value": "pre-log-apps-1"
+            "value": "asmprdlogapps1"
         },
         "omsWorkspaceRegion": {
             "value": "North Europe"
