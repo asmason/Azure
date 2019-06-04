@@ -1,0 +1,65 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "routeTableName": {
+            "type": "string",
+            "metadata": {
+                "description": "Route table name"
+            }
+        },
+        "routeName": {
+            "type": "string",
+            "metadata": {
+                "description": "Route name"
+            }
+        },
+        "nextHopIpAddress": {
+            "type": "string",
+            "metadata": {
+                "description": "Next hope IP address"
+            }
+        },
+        "subnetAddressPrefix": {
+            "type": "string",
+            "metadata": {
+                "description": "Subnet address prefix"
+            }
+        },
+        "nextHopType": {
+            "type": "string",
+            "defaultValue": "VirtualAppliance",
+            "allowedValues": [
+                "VirtualAppliance",
+                "Internet",
+                "VNetLocal",
+                "VirtualNetworkGateway",
+                "VirtualNetworkServiceEndpoint",
+                "None"
+            ],
+            "metadata": {
+                "description": "Next hope type"
+            }
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "2015-06-15",
+            "type": "Microsoft.Network/routeTables",
+            "name": "[parameters('routeTableName')]",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "routes": [
+                    {
+                        "name": "[parameters('routeName')]",
+                        "properties": {
+                            "addressPrefix": "[parameters('subnetAddressPrefix')]",
+                            "nextHopType": "[parameters('nextHopType')]",
+                            "nextHopIpAddress": "[parameters('nextHopIpAddress')]"
+                        }
+                    }
+                ]
+            }
+        }
+    ]
+}

@@ -1,0 +1,36 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "adminUsername": {
+            "value": "AdminUser"
+        },
+        "virtualNetworkName": {
+            "value": "prd-vn-hub-1"
+        },
+        "virtualNetworkResourceGroup": {
+            "value": "rg-prd-vn-hub-1"
+        },
+        "subnetName": {
+            "value": "prd-vn-hub-1-management-1"
+        },
+        "vmName": {
+            "value": "vmp1wrdgw1"
+        },
+        "vmSize": {
+            "value": "Standard_B2s"
+        },
+        "fqdn": {
+            "value": "rdgw-asmason.ddns.net"
+        },
+        "domainJoinUserName": {
+            "value": "AdminUser"
+        },
+        "domainJoinOUPath": {
+            "value": "OU=Servers,DC=mydomain,DC=local"
+        },
+        "domainJoinFQDN": {
+            "value": "mydomain.local"
+        }
+    }
+}

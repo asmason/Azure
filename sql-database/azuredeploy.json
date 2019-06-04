@@ -1,0 +1,78 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "serverName": {
+            "type": "string",
+            "metadata": {
+                "description": "The name of the SQL Database server"
+            }
+        },
+        "databaseName": {
+            "type": "string",
+            "metadata": {
+                "description": "The name of the SQL Database"
+            }
+        },
+        "edition": {
+            "type": "string",
+            "defaultValue": "Standard",
+            "allowedValues": [
+                "Basic",
+                "Standard"
+            ],
+            "metadata": {
+                "description": "The requested service object name"
+            }
+        },
+        "maxSizeBytes": {
+            "type": "string",
+            "defaultValue": "1073741824",
+            "metadata": {
+                "description": "The max size bytes"
+            }
+        },
+        "requestedServiceObjectiveName": {
+            "type": "string",
+            "defaultValue": "S1",
+            "allowedValues": [
+                "S0",
+                "S1",
+                "S2",
+                "S3",
+                "P1",
+                "P2",
+                "P4",
+                "P6"
+            ],
+            "metadata": {
+                "description": "The requested service object name"
+            }
+        },
+        "collation": {
+            "type": "string",
+            "defaultValue": "SQL_Latin1_General_CP1_CI_AS",
+            "allowedValues": [
+                "SQL_Latin1_General_CP1_CI_AS"
+            ],
+            "metadata": {
+                "description": "The database collation"
+            }
+        }
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Sql/servers/databases",
+            "name": "[concat(parameters('serverName'), '/', parameters('databaseName'))]",
+            "apiVersion": "2014-04-01",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "edition": "[parameters('edition')]",
+                "maxSizeBytes": "[parameters('maxSizeBytes')]",
+                "requestedServiceObjectiveName": "[parameters('requestedServiceObjectiveName')]",
+                "collation": "[parameters('collation')]"
+            }
+        }
+    ],
+    "outputs": {}
+}

@@ -1,0 +1,119 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "vnetName": {
+            "type": "string",
+            "metadata": {
+                "description": "The name of the spoke virtual network"
+            }
+        },
+        "vnetPrefix": {
+            "type": "string",
+            "metadata": {
+                "description": "The prefix of the spoke virtual network"
+            }
+        },
+        "appgwSubnetName": {
+            "type": "string",
+            "metadata": {
+                "description": "The name of the app gateway subnet"
+            }
+        },
+        "appgwSubnetPrefix": {
+            "type": "string",
+            "metadata": {
+                "description": "The prefix of the appgw subnet"
+            }
+        },
+        "dmzSubnetName": {
+            "type": "string",
+            "metadata": {
+                "description": "The name of the app gateway subnet"
+            }
+        },
+        "dmzSubnetPrefix": {
+            "type": "string",
+            "metadata": {
+                "description": "The prefix of the appgw subnet"
+            }
+        },
+        "frontendSubnetName": {
+            "type": "string",
+            "metadata": {
+                "description": "The name for the frontend subnet"
+            }
+        },
+        "frontendSubnetPrefix": {
+            "type": "string",
+            "metadata": {
+                "description": "The prefix of the frontend subnet"
+            }
+        },        
+        "backendSubnetName": {
+            "type": "string",
+            "metadata": {
+                "description": "The name of the backend subnet"
+            }
+        },
+        "backendSubnetPrefix": {
+            "type": "string",
+            "metadata": {
+                "description": "The prefix of the backend subnet"
+            }
+        },
+        "dnsServers": {
+          "type": "array",
+          "metadata": {
+            "description": "DNS server addresses for the VNet"
+          }
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Network/virtualNetworks",
+            "name": "[parameters('vnetName')]",
+            "apiVersion": "2017-06-01",
+            "location": "[resourceGroup().location]",
+            "comments": "Deployment of the spoke virtual network",
+            "properties": {
+                "addressSpace": {
+                    "addressPrefixes": [
+                        "[parameters('vnetPrefix')]"
+                    ]
+                },
+                "subnets": [
+                    {
+                        "name": "[parameters('appgwSubnetName')]",
+                        "properties": {
+                            "addressPrefix": "[parameters('appgwSubnetPrefix')]"
+                        }
+                    },
+                    {
+                        "name": "[parameters('dmzSubnetName')]",
+                        "properties": {
+                            "addressPrefix": "[parameters('dmzSubnetPrefix')]"
+                        }
+                    },
+                    {
+                        "name": "[parameters('frontendSubnetName')]",
+                        "properties": {
+                            "addressPrefix": "[parameters('frontendSubnetPrefix')]"
+                        }
+                    },
+                    {
+                        "name": "[parameters('backendSubnetName')]",
+                        "properties": {
+                            "addressPrefix": "[parameters('backendSubnetPrefix')]"
+                        }
+                    }
+                ],
+                "dhcpOptions": {
+                    "dnsServers": "[parameters('dnsServers')]"
+                }
+            }
+        }
+    ],
+    "outputs": {}
+}

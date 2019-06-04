@@ -1,0 +1,37 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "siteName": {
+            "type": "string",
+            "minLength": 5
+        },
+        "hostingPlanResourceGroup": {
+            "type": "string",
+            "minLength": 5
+        },
+        "hostingPlanName": {
+            "type": "string",
+            "minLength": 5
+        },
+        "siteConfig": {
+            "type": "object"
+        }
+
+    },
+    "resources": [
+        {
+            "apiVersion": "2016-08-01",
+            "name": "[parameters('siteName')]",
+            "type": "Microsoft.Web/sites",
+            "location": "[resourceGroup().location]",
+            "kind": "app",
+            "properties": {
+                "enabled": true,
+                "name": "[parameters('siteName')]",
+                "serverFarmId": "[resourceId(parameters('hostingPlanResourceGroup'), 'Microsoft.Web/serverfarms', parameters('hostingPlanName'))]",
+                "siteConfig": "[parameters('siteConfig')]"
+            }
+        }
+    ]
+}

@@ -1,0 +1,39 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "vnetName": {
+            "value": "prd-vn-apps-1"
+        },
+        "vnetPrefix": {
+            "value": "172.19.0.0/16"
+        },
+        "appgwSubnetName": {
+            "value": "prd-vn-apps-1-appgw-1"
+        },
+        "appgwSubnetPrefix": {
+            "value": "172.19.1.0/24"
+        },
+        "dmzSubnetName": {
+            "value": "prd-vn-apps-1-dmz-1"
+        },
+        "dmzSubnetPrefix": {
+            "value": "172.19.2.0/24"
+        },
+        "frontendSubnetName": {
+            "value": "prd-vn-apps-1-frontend-1"
+        },
+        "frontendSubnetPrefix": {
+            "value": "172.19.3.0/24"
+        },
+        "backendSubnetName": {
+            "value": "prd-vn-apps-1-backend-1"
+        },
+        "backendSubnetPrefix": {
+            "value": "172.19.4.0/24"
+        },
+        "dnsServers": {
+            "value": []
+        }
+    }
+}

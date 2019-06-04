@@ -1,0 +1,149 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "automationAccountName": {
+        "type": "string",
+        "metadata": {
+            "description": "The name of the automation account"
+        }
+      },
+      "runbookName": {
+        "type": "string",
+        "metadata": {
+            "description": "The name of the automation account"
+        }
+      },
+      "monthlyScheduleName": {
+        "type": "string",
+        "defaultValue": "MontlySchedule",
+        "metadata": {
+            "description": "The name of the automation schedule"
+        }
+      },
+      "weeklyScheduleName": {
+        "type": "string",
+        "defaultValue": "WeeklySchedule",
+        "metadata": {
+            "description": "The name of the automation schedule"
+        }
+      },
+      "dailyScheduleName": {
+        "type": "string",
+        "defaultValue": "DailySchedule",
+        "metadata": {
+            "description": "The name of the automation schedule"
+        }
+      },
+      "oneTimeScheduleName": {
+        "type": "string",
+        "defaultValue": "OneTimeSchedule",
+        "metadata": {
+            "description": "The name of the automation schedule"
+        }
+      },
+      "publishContentLink": {
+        "type": "string",
+        "defaultValue": "https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/101-automation-runbook-getvms/Runbooks/Get-AzureVMTutorial.ps1",
+        "metadata": {
+            "description": "The publish content link"
+        }
+      }
+    },
+    "resources": [
+        {
+            "name": "[parameters('automationAccountName')]",
+            "type": "Microsoft.Automation/automationAccounts",
+            "apiVersion": "2015-10-31",
+            "properties": {
+                "sku": {
+                    "name": "Basic"
+                }
+            },
+            "location": "[resourceGroup().location]"
+        },
+        {
+          "name": "[concat(parameters('automationAccountName'), '/', parameters('runbookName'))]",
+          "type": "Microsoft.Automation/automationAccounts/runbooks",
+          "apiVersion": "2015-10-31",
+          "location": "[resourceGroup().location]",
+          "dependsOn": [
+            "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName'))]"
+          ],
+          "properties": {
+            "runbookType": "PowerShell",
+            "logProgress": false,
+            "logVerbose": false,
+            "description": "Runbook description",
+            "publishContentLink": {
+              "uri": "[parameters('publishContentLink')]",
+              "version": "1.0.0.0"
+            }
+          }
+        },
+        {
+          "name": "[concat(parameters('automationAccountName'), '/', parameters('monthlyScheduleName'))]",
+          "type": "Microsoft.Automation/automationAccounts/schedules",
+          "apiVersion": "2015-10-31",
+          "properties": {
+            "description": "Starts monthly",
+            "expiryTime": "9999-12-31T17:59:00-06:00",
+            "isEnabled": true,
+            "interval": 1,
+            "frequency": "Month"
+          },
+          "dependsOn": [
+            "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName'))]",
+            "[parameters('runbookName')]"
+          ]
+        },
+        {
+          "name": "[concat(parameters('automationAccountName'), '/', parameters('weeklyScheduleName'))]",
+          "type": "Microsoft.Automation/automationAccounts/schedules",
+          "apiVersion": "2015-10-31",
+          "properties": {
+            "description": "Starts weekly",
+            "expiryTime": "9999-12-31T17:59:00-06:00",
+            "isEnabled": true,
+            "interval": 1,
+            "frequency": "Week"
+          },
+          "dependsOn": [
+            "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName'))]",
+            "[parameters('runbookName')]"
+          ]
+        },
+        {
+          "name": "[concat(parameters('automationAccountName'), '/', parameters('dailyScheduleName'))]",
+          "type": "Microsoft.Automation/automationAccounts/schedules",
+          "apiVersion": "2015-10-31",
+          "properties": {
+            "description": "Starts daily",
+            "expiryTime": "9999-12-31T17:59:00-06:00",
+            "isEnabled": true,
+            "interval": 1,
+            "frequency": "Day"
+          },
+          "dependsOn": [
+            "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName'))]",
+            "[parameters('runbookName')]"
+          ]
+        },
+        {
+          "name": "[concat(parameters('automationAccountName'), '/', parameters('oneTimeScheduleName'))]",
+          "type": "Microsoft.Automation/automationAccounts/schedules",
+          "apiVersion": "2015-10-31",
+          "properties": {
+            "description": "Starts once",
+            "expiryTime": "9999-12-31T17:59:00-06:00",
+            "isEnabled": true,
+            "interval": null,
+            "frequency": "OneTime"
+          },
+          "dependsOn": [
+            "[resourceId('Microsoft.Automation/automationAccounts', parameters('automationAccountName'))]",
+            "[parameters('runbookName')]"
+          ]
+        }
+    ]
+}

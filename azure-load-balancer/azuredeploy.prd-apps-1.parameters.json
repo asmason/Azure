@@ -1,0 +1,24 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+      "numberOfInstances": {
+          "value": 2
+      },
+      "vmNamePrefix": {
+          "value": "vmp1wtest"
+      },
+      "virtualNetworkName": {
+          "value": "prd-vn-apps-1"
+      },
+      "virtualNetworkResourceGroup": {
+          "value": "rg-prd-vn-apps-1"
+      },
+      "subnetName": {
+          "value": "prd-vn-apps-1-dmz-1"
+      },        
+      "vmSize": {
+          "value": "Standard_B2s"
+      }
+  }
+}

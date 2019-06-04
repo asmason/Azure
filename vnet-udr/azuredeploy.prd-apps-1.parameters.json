@@ -1,0 +1,21 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "routeTableName": {
+            "value": "prd-rt-vn-apps-pfsense-1"
+        },
+        "routeName": {
+            "value": "route-to-pfsense-trusted"
+        },
+        "nextHopIpAddress": {
+            "value": "172.16.1.36"
+        },
+        "subnetAddressPrefix": {
+            "value": "0.0.0.0/24"
+        },
+        "nextHopType": {
+            "value": "VirtualAppliance"
+        }
+    }
+}

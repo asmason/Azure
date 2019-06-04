@@ -1,0 +1,29 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "keyVaultName": {
+      "value": "shuprekvapps1"
+    },
+    "objectId": {
+      "value": "c5b8262f-dd55-481e-94d1-f56ba356bc3a"
+    },
+    "enabledForTemplateDeployment": {
+      "value" : true
+    },
+    "secretsObject": {
+      "value": {
+        "secrets": [
+          {
+            "secretName": "exampleSecret1",
+            "secretValue": "secretVaule1"
+          },
+          {
+            "secretName": "exampleSecret2",
+            "secretValue": "secretValue2"
+          }
+        ]
+      }
+    }
+  }
+}

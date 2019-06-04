@@ -1,0 +1,70 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "vnetName": {
+            "value": "prd-vn-hub-1"
+        },
+        "vnetPrefix": {
+            "value": "172.18.0.0/16"
+        },
+        "gatewaySubnetPrefix": {
+            "value": "172.18.0.0/27"
+        },
+        "managementSubnetName": {
+            "value": "prd-vn-hub-1-management-1"
+        },
+        "managementSubnetPrefix": {
+            "value": "172.18.1.0/24"
+        },
+        "untrustedSubnetName": {
+            "value": "prd-vn-hub-1-untrusted-1"
+        },
+        "untrustedSubnetPrefix": {
+            "value": "172.18.2.0/24"
+        },
+        "trustedSubnetName": {
+            "value": "prd-vn-hub-1-trusted-1"
+        },
+        "trustedSubnetPrefix": {
+            "value": "172.18.3.0/24"
+        },
+        "sharedSubnetName": {
+            "value": "prd-vn-hub-1-shared-1"
+        },
+        "sharedSubnetPrefix": {
+            "value": "172.18.4.0/24"
+        },
+        "dnsServers": {
+            "value": []
+        },
+
+        "vpnGatewayPublicIPAddressName": {
+            "value": "prd-vn-hub-1-gw-pip"
+        },
+        "vpnGatewayName": {
+            "value": "prd-vn-hub-1-gw"
+        },
+        "vpnGatewaySku": {
+            "value": "VpnGw1"
+        },
+        "vpnConnectionName": {
+            "value": "prd-vn-hub-1-cn-1"
+        },
+        "vpnGatewaySharedKey": {
+            "value": "xxx"
+        },
+        "vpnType": {
+            "value": "RouteBased"
+        },
+        "localNetworkGatewayName": {
+            "value": "prd-vn-hub-1-lgw-1"
+        },
+        "localNetworkGatewayIpAddress": {
+            "value": "1.1.1.1"
+        },
+        "localNetworkGatewayAddressPrefix": {
+            "value": "192.168.1.0/24"
+        }
+    }
+}

@@ -1,0 +1,30 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "vNet1Name": {
+            "value": "prd-vn-hub-1"
+        },
+        "vNet2Name": {
+            "value": "pre-vn-apps-1"
+        },
+        "vNet2SubscriptionId": {
+            "value": "935e6bd0-1a03-4fe6-8d8d-d1ecfd5a670b"
+        },
+        "vNet2ResourceGroup": {
+            "value": "rg-pre-vn-apps-1"
+        },
+        "allowVirtualNetworkAccess": {
+            "value": "true"
+        },
+        "allowForwardedTraffic": {
+            "value": "true"
+        },
+        "allowGatewayTransit": {
+            "value": "true"
+        },
+        "useRemoteGateways": {
+            "value": "false"
+        }
+    }
+}

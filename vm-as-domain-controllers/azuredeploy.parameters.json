@@ -1,0 +1,49 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "numberOfInstances": {
+            "value": 2
+        },
+        "vmNamePrefix": {
+            "value": "vmp1wdc"
+        },
+        "virtualNetworkName": {
+            "value": "prd-vn-hub-1"
+        },
+        "virtualNetworkResourceGroup": {
+            "value": "rg-prd-vn-hub-1"
+        },
+        "subnetName": {
+            "value": "prd-vn-hub-1-shared-1"
+        },        
+        "vmSize": {
+            "value": "Standard_B2s"
+        },
+        "domainName": {
+            "value": "mydomain.local"
+        },
+        "dataDiskSize": {
+            "value": 32
+        },
+        "dataDiskCaching": {
+            "value": "None"
+        },
+        "osDiskCaching": {
+            "value": "None"
+        },
+        "ipAddresses": {
+            "value": [
+                {
+                    "ipAddress": "172.18.3.4"
+                },
+                {
+                    "ipAddress": "172.18.3.5"
+                }
+            ]
+        },
+		"diagnosticsStorageAccount": {
+            "value": "shuprdsadiaghub1"
+        },
+    }
+}

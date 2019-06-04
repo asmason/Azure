@@ -1,0 +1,24 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "virtualNetworkName": {
+            "value": "pre-vn-apps-1"
+        },
+        "virtualNetworkResourceGroup": {
+            "value": "rg-pre-vn-apps-1"
+        },
+        "subnetName": {
+            "value": "pre-vn-apps-1-appgw-1"
+        },
+        "applicationGatewayName": {
+            "value": "pre-agw-apps-1"
+        },
+        "tier": {
+            "value": "WAF_v2"
+        },
+        "wafEnabled": {
+            "value": true
+        }
+    }
+}

@@ -1,0 +1,84 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+          "vNet1Name": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+              "description": "VNet 1 name"
+            }
+          },
+          "vNet2Name": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+              "description": "VNet 2 name"
+            }
+          },
+          "vNet2SubscriptionId": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+              "description": "VNet 2 SubscriptionId"
+            }
+          },
+          "vNet2ResourceGroup": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+              "description": "VNet 2 resource group name"
+            }
+          },            
+          "allowVirtualNetworkAccess": {
+            "type": "string",
+            "defaultValue": "true",
+            "metadata": {
+              "description": "Allow virtual network access"
+            }
+          },
+          "allowForwardedTraffic": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+              "description": "Allow forwarded traffic"
+            }
+          },
+          "allowGatewayTransit": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+              "description": "Allow gateway transit"
+            }
+          },
+          "useRemoteGateways": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+              "description": "Use remote gateways"
+            }
+          }
+    },
+    "variables": {
+        "remoteVnetId": "[resourceId(parameters('vNet2SubscriptionId'), parameters('vNet2ResourceGroup'), 'Microsoft.Network/virtualNetworks', parameters('vNet2Name'))]"
+
+    },
+    "resources": [
+        {
+            "apiVersion": "2018-08-01",
+            "type": "Microsoft.Network/virtualNetworks/virtualNetworkPeerings",
+            "name": "[concat(parameters('vNet1Name'), '/Peered-to-', parameters('vNet2Name'))]",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "allowVirtualNetworkAccess": "[parameters('allowVirtualNetworkAccess')]",
+                "allowForwardedTraffic": "[parameters('allowForwardedTraffic')]",
+                "allowGatewayTransit": "[parameters('allowGatewayTransit')]",
+                "useRemoteGateways": "[parameters('useRemoteGateways')]",
+                "remoteVirtualNetwork": {
+                    "id": "[variables('remoteVnetId')]"
+                }
+            }
+        }
+    ],
+    "outputs": {}
+}
