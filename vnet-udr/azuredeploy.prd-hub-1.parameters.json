@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "routeTableName": {
-            "value": "prd-rt-pfs-apps-1"
+            "value": "prd-rt-pfs-hub-1"
         },
         "nextHopIpAddress": {
             "value": "172.18.3.4"

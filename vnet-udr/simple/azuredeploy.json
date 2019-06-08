@@ -8,17 +8,22 @@
                 "description": "Route table name"
             }
         },
+        "routeName": {
+            "type": "string",
+            "metadata": {
+                "description": "Route name"
+            }
+        },
         "nextHopIpAddress": {
             "type": "string",
             "metadata": {
-                "description": "Next hop IP address"
+                "description": "Next hope IP address"
             }
         },
-        "subnetAddressPrefixes": {
-            "type": "array",
-            "defaultValue": [],
+        "subnetAddressPrefix": {
+            "type": "string",
             "metadata": {
-                "description": "The subnet address prefixes which will be routed to the virtual appliance."
+                "description": "Subnet address prefix"
             }
         },
         "nextHopType": {
@@ -33,7 +38,7 @@
                 "None"
             ],
             "metadata": {
-                "description": "Next hope type, e.g. VirtualAppliance"
+                "description": "Next hope type"
             }
         }
     },
@@ -44,17 +49,13 @@
             "name": "[parameters('routeTableName')]",
             "location": "[resourceGroup().location]",
             "properties": {
-                "copy": [
+                "routes": [
                     {
-                        "name": "routes",
-                        "count": "[length(parameters('subnetAddressPrefixes'))]",
-                        "input": {
-                            "name": "[concat('route-',replace(parameters('subnetAddressPrefixes')[copyIndex('routes')],'/','_'),'-to-', parameters('nextHopIpAddress'))]",
-                            "properties": {
-                                "addressPrefix": "[parameters('subnetAddressPrefixes')[copyIndex('routes')]]",
-                                "nextHopType": "[parameters('nextHopType')]",
-                                "nextHopIpAddress": "[parameters('nextHopIpAddress')]"
-                            }
+                        "name": "[parameters('routeName')]",
+                        "properties": {
+                            "addressPrefix": "[parameters('subnetAddressPrefix')]",
+                            "nextHopType": "[parameters('nextHopType')]",
+                            "nextHopIpAddress": "[parameters('nextHopIpAddress')]"
                         }
                     }
                 ]

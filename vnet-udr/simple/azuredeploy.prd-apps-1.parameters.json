@@ -3,15 +3,16 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "routeTableName": {
-            "value": "prd-rt-pfs-apps-1"
+            "value": "prd-rt-vn-apps-pfsense-1"
+        },
+        "routeName": {
+            "value": "route-to-pfsense-trusted"
         },
         "nextHopIpAddress": {
-            "value": "172.18.3.4"
+            "value": "172.16.1.36"
         },
-        "subnetAddressPrefixes": {
-            "value": [
-                "0.0.0.0/0"
-            ]
+        "subnetAddressPrefix": {
+            "value": "0.0.0.0/24"
         },
         "nextHopType": {
             "value": "VirtualAppliance"

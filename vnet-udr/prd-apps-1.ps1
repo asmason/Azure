@@ -1,10 +1,10 @@
-Add-AzureRmAccount
+﻿Add-AzureRmAccount
 
 $subscriptionId = '935e6bd0-1a03-4fe6-8d8d-d1ecfd5a670b'
-$resourceGroupName = 'rg-prd-vn-hub-1'
+$resourceGroupName = 'rg-prd-udr-apps-1'
 $location = 'northeurope'
 $templateFile = 'azuredeploy.json'
-$templateParameterFile = 'azuredeploy.hub-prd.parameters.json'
+$templateParameterFile = 'azuredeploy.prd-apps-1.parameters.json'
 
 Select-AzureRmSubscription -Subscription $subscriptionId
 
@@ -23,3 +23,5 @@ if($testErrors.Count -eq 0) {
 else {
     $testErrors | ForEach-Object { Write-Host ($_.Message)}
 }
+
+Get-AzureRmLog -CorrelationId dce209ee-2f34-48de-a1f3-421189a7a278 -DetailedOutput

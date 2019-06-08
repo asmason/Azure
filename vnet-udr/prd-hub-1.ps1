@@ -1,10 +1,10 @@
-Add-AzureRmAccount
+﻿Add-AzureRmAccount
 
 $subscriptionId = '935e6bd0-1a03-4fe6-8d8d-d1ecfd5a670b'
-$resourceGroupName = 'rg-prd-vn-hub-1'
+$resourceGroupName = 'rg-prd-udr-hub-1'
 $location = 'northeurope'
 $templateFile = 'azuredeploy.json'
-$templateParameterFile = 'azuredeploy.hub-prd.parameters.json'
+$templateParameterFile = 'azuredeploy.prd-hub-1.parameters.json'
 
 Select-AzureRmSubscription -Subscription $subscriptionId
 

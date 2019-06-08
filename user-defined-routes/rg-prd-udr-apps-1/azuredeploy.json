@@ -1,0 +1,134 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+  },
+  "variables": {
+    "existingVirtualNetworkResourceGroupName": "rg-prd-vn-apps-1",
+    "newUdrResourceGroupName": "rg-prd-udr-apps-1",
+    "existingVirtualNetworkName": "prd-vn-apps-1",
+    "location": "[resourceGroup().location]",
+    "existingAppGwSubnetName": "prd-vn-apps-1-appgw-1",
+    "existingDmzSubnetName": "prd-vn-apps-1-dmz-1",
+    "existingFrontendSubnetName": "prd-vn-apps-1-frontend-1",
+    "existingBackendSubnetName": "prd-vn-apps-1-backend-1",
+    "newAppGwRouteTableName": "[concat(variables('existingAppGwSubnetName'), '-udr')]",
+    "newDmzRouteTableName": "[concat(variables('existingDmzSubnetName'), '-udr')]",
+    "newFrontendRouteTableName": "[concat(variables('existingFrontendSubnetName'), '-udr')]",
+    "newBackendRouteTableName": "[concat(variables('existingBackendSubnetName'), '-udr')]",
+    "appGwSubnetId": "[resourceId(variables('existingVirtualNetworkResourceGroupName'),'Microsoft.Network/virtualNetworks/subnets', variables('existingVirtualNetworkName'), variables('existingAppGwSubnetName'))]",
+    "dmzSubnetId": "[resourceId(variables('existingVirtualNetworkResourceGroupName'),'Microsoft.Network/virtualNetworks/subnets', variables('existingVirtualNetworkName'), variables('existingDmzSubnetName'))]",
+    "frontendSubnetId": "[resourceId(variables('existingVirtualNetworkResourceGroupName'),'Microsoft.Network/virtualNetworks/subnets', variables('existingVirtualNetworkName'), variables('existingFrontendSubnetName'))]",
+    "backendSubnetId": "[resourceId(variables('existingVirtualNetworkResourceGroupName'),'Microsoft.Network/virtualNetworks/subnets', variables('existingVirtualNetworkName'), variables('existingBackendSubnetName'))]",
+
+    "prdHub1GatewaySubnetAddressPrefix": "172.18.0.0/24",
+    "prdHub1ManagementSubnetAddressPrefix": "172.18.1.0/24",
+    "prdHub1UntrustedSubnetAddressPrefix": "172.18.2.0/24",
+    "prdHub1TrustedSubnetAddressPrefix": "172.18.3.0/24",
+    "prdHub1SharedSubnetAddressPrefix": "172.18.4.0/24",
+
+    "prdApps1AppGwSubnetAddressPrefix": "172.19.1.0/24",
+    "prdApps1DmzSubnetAddressPrefix": "172.19.2.0/24",
+    "prdApps1FrontendSubnetAddressPrefix": "172.19.3.0/24",
+    "prdApps1BackendSubnetAddressPrefix": "172.19.4.0/24",
+
+    "preApps1AppGwSubnetAddressPrefix": "172.20.1.0/24",
+    "preApps1DmzSubnetAddressPrefix": "172.20.2.0/24",
+    "preApps1FrontendSubnetAddressPrefix": "172.20.3.0/24",
+    "preApps1BackendSubnetAddressPrefix": "172.20.4.0/24",
+
+    "stKatharineDocksAddressPrefixes": [ "192.168.1.0/24", "192.168.2.0/24" ],
+    "holbeinPlaceAddressPrefixes": [ "192.168.3.0/24", "192.168.4.0/24" ],
+    "belfastAddressPrefixes": [ "192.168.5.0/24" ],
+    "birminghamAddressPrefixes": [ "192.168.6.0/24" ],
+    "cambridgeAddressPrefixes": [ "192.168.7.0/24" ],
+    "cardiffAddressPrefixes": [ "192.168.8.0/24" ],
+    "edinburghAddressPrefixes": [ "192.168.9.0/24" ],
+    "exeterAddressPrefixes": [ "192.168.10.0/24" ],
+    "leedsAddressPrefixes": [ "192.168.11.0/24" ],
+    "manchesterAddressPrefixes": [ "192.168.12.0/24" ],
+    "newcastleAddressPrefixes": [ "192.168.13.0/24" ],
+    "nottinghamAddressPrefixes": [ "192.168.14.0/24" ],
+
+    "allOfficeAddressPrefixes": "[concat(variables('stKatharineDocksAddressPrefixes'),variables('holbeinPlaceAddressPrefixes'),variables('belfastAddressPrefixes'),variables('birminghamAddressPrefixes'),variables('cambridgeAddressPrefixes'),variables('cardiffAddressPrefixes'),variables('edinburghAddressPrefixes'),variables('exeterAddressPrefixes'),variables('leedsAddressPrefixes'),variables('manchesterAddressPrefixes'),variables('newcastleAddressPrefixes'),variables('nottinghamAddressPrefixes'))]",
+
+    "vmx100NextHopIpAddress": "10.100.2.4",
+    "vmx100NextHopType": "VirtualAppliance"
+
+  },
+  "resources": [
+    {
+      "apiVersion": "2015-06-15",
+      "type": "Microsoft.Network/routeTables",
+      "name": "[variables('newDmzRouteTableName')]",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "copy": [
+          {
+            "name": "routes",
+            "count": "[length(variables('allOfficeAddressPrefixes'))]",
+            "input": {
+              "name": "[concat('route-',replace(variables('allOfficeAddressPrefixes')[copyIndex('routes')],'/','_'),'-to-', variables('vmx100NextHopIpAddress'))]",
+              "properties": {
+                "addressPrefix": "[variables('allOfficeAddressPrefixes')[copyIndex('routes')]]",
+                "nextHopType": "[variables('vmx100NextHopType')]",
+                "nextHopIpAddress": "[variables('vmx100NextHopIpAddress')]"
+              }
+            }
+          }
+        ]
+      }
+    },
+
+    {
+      "apiVersion": "2015-06-15",
+      "type": "Microsoft.Network/routeTables",
+      "name": "[variables('newFrontendRouteTableName')]",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "copy": [
+          {
+            "name": "routes",
+            "count": "[length(variables('allOfficeAddressPrefixes'))]",
+            "input": {
+              "name": "[concat('route-',replace(variables('allOfficeAddressPrefixes')[copyIndex('routes')],'/','_'),'-to-', variables('vmx100NextHopIpAddress'))]",
+              "properties": {
+                "addressPrefix": "[variables('allOfficeAddressPrefixes')[copyIndex('routes')]]",
+                "nextHopType": "[variables('vmx100NextHopType')]",
+                "nextHopIpAddress": "[variables('vmx100NextHopIpAddress')]"
+              }
+            }
+          }
+        ]
+      }
+    },
+
+    {
+      "apiVersion": "2015-06-15",
+      "type": "Microsoft.Network/routeTables",
+      "name": "[variables('newBackendRouteTableName')]",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "copy": [
+          {
+            "name": "routes",
+            "count": "[length(variables('allOfficeAddressPrefixes'))]",
+            "input": {
+              "name": "[concat('route-',replace(variables('allOfficeAddressPrefixes')[copyIndex('routes')],'/','_'),'-to-', variables('vmx100NextHopIpAddress'))]",
+              "properties": {
+                "addressPrefix": "[variables('allOfficeAddressPrefixes')[copyIndex('routes')]]",
+                "nextHopType": "[variables('vmx100NextHopType')]",
+                "nextHopIpAddress": "[variables('vmx100NextHopIpAddress')]"
+              }
+            }
+          }
+        ]
+      }
+    }
+
+
+
+  ],
+  "outputs": {
+  }
+}

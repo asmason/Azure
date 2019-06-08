@@ -1,0 +1,62 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+  },
+  "variables": {
+    "existingVirtualNetworkResourceGroupName": "rg-prd-vn-hub-1",
+    "newUdrResourceGroupName": "rg-prd-udr-hub-1",
+    "existingVirtualNetworkName": "prd-vn-hub-1",
+    "location": "[resourceGroup().location]",
+
+    "existingvMX100SubnetName": "prd-vn-hub-1-vmx100-1",
+    "existingvMX100ClientVpnSubnetName": "prd-vn-hub-1-vmx100clientvpn-1",
+
+    "newvMX100RouteTableName": "[concat(variables('existingvMX100SubnetName'), '-udr')]",
+    "newvMX100ClientVpnTableName": "[concat(variables('existingvMX100ClientVpnSubnetName'), '-udr')]",
+
+    "vmx100SubnetId": "[resourceId(variables('existingVirtualNetworkResourceGroupName'),'Microsoft.Network/virtualNetworks/subnets', variables('existingVirtualNetworkName'), variables('existingvMX100SubnetName'))]",
+    "vmx100ClientVpnSubnetId": "[resourceId(variables('existingVirtualNetworkResourceGroupName'),'Microsoft.Network/virtualNetworks/subnets', variables('existingVirtualNetworkName'), variables('existingvMX100ClientVpnSubnetName'))]",
+
+    "prdHub1GatewaySubnetAddressPrefix": "172.18.0.0/24",
+    "prdHub1ManagementSubnetAddressPrefix": "172.18.1.0/24",
+    "prdHub1UntrustedSubnetAddressPrefix": "172.18.2.0/24",
+    "prdHub1TrustedSubnetAddressPrefix": "172.18.3.0/24",
+    "prdHub1SharedSubnetAddressPrefix": "172.18.4.0/24",
+
+    "prdApps1AppGwSubnetAddressPrefix": "172.19.1.0/24",
+    "prdApps1DmzSubnetAddressPrefix": "172.19.2.0/24",
+    "prdApps1FrontendSubnetAddressPrefix": "172.19.3.0/24",
+    "prdApps1BackendSubnetAddressPrefix": "172.19.4.0/24",
+
+    "preApps1AppGwSubnetAddressPrefix": "172.20.1.0/24",
+    "preApps1DmzSubnetAddressPrefix": "172.20.2.0/24",
+    "preApps1FrontendSubnetAddressPrefix": "172.20.3.0/24",
+    "preApps1BackendSubnetAddressPrefix": "172.20.4.0/24",
+
+    "stKatharineDocksAddressPrefixes": [ "192.168.1.0/24", "192.168.2.0/24" ],
+    "holbeinPlaceAddressPrefixes": [ "192.168.3.0/24", "192.168.4.0/24" ],
+    "belfastAddressPrefixes": [ "192.168.5.0/24" ],
+    "birminghamAddressPrefixes": [ "192.168.6.0/24" ],
+    "cambridgeAddressPrefixes": [ "192.168.7.0/24" ],
+    "cardiffAddressPrefixes": [ "192.168.8.0/24" ],
+    "edinburghAddressPrefixes": [ "192.168.9.0/24" ],
+    "exeterAddressPrefixes": [ "192.168.10.0/24" ],
+    "leedsAddressPrefixes": [ "192.168.11.0/24" ],
+    "manchesterAddressPrefixes": [ "192.168.12.0/24" ],
+    "newcastleAddressPrefixes": [ "192.168.13.0/24" ],
+    "nottinghamAddressPrefixes": [ "192.168.14.0/24" ],
+
+    "allOfficeAddressPrefixes": "[concat(variables('stKatharineDocksAddressPrefixes'),variables('holbeinPlaceAddressPrefixes'),variables('belfastAddressPrefixes'),variables('birminghamAddressPrefixes'),variables('cambridgeAddressPrefixes'),variables('cardiffAddressPrefixes'),variables('edinburghAddressPrefixes'),variables('exeterAddressPrefixes'),variables('leedsAddressPrefixes'),variables('manchesterAddressPrefixes'),variables('newcastleAddressPrefixes'),variables('nottinghamAddressPrefixes'))]",
+
+    "vmx100NextHopIpAddress": "10.100.2.4",
+    "vmx100NextHopType": "VirtualAppliance"
+
+  },
+  "resources": [
+
+
+  ],
+  "outputs": {
+  }
+}
