@@ -503,8 +503,10 @@
             "dependsOn": [
                 "[variables('appGwPublicIPRef')]",
                 "vmCopy"
-
             ],
+            "zones": [
+                "1","2","3"
+            ],            
             "properties": {
                 "sku": {
                     "name": "[parameters('tier')]",
