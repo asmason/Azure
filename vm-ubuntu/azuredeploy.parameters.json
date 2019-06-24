@@ -1,0 +1,39 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "adminUsername": {
+            "value": "adminuser"
+        },
+        "adminPasswordOrKey": {
+            "value": "StrongSwan321!"
+        },
+        "authenticationType":{
+            "value": "password"
+        },
+        "virtualNetworkName": {
+            "value": "prd-vn-hub-1"
+        },
+        "virtualNetworkResourceGroup": {
+            "value": "rg-prd-vn-hub-1"
+        },
+        "subnetName": {
+            "value": "prd-vn-hub-1-strongswan-1"
+        },
+        "vmName": {
+            "value": "vmp1wss1"
+        },
+        "vmSize": {
+            "value": "Standard_B2s"
+        },
+        "diagnosticsStorageAccount": {
+            "value": "asmprdsadiaghub1"
+        },
+        "artifactsLocation" :{
+            "value": "https://asmprdsamgt1.blob.core.windows.net/deployment/"
+        },
+        "dnsLabelPrefix": {
+          "value": "asmvmp1wss1" 
+        }
+    }
+}
