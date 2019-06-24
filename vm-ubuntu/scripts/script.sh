@@ -1,5 +1,5 @@
 #!/bin/sh
-sudo apt-get update
+sudo apt update
 sudo apt install moreutils -y
 
 # == To run this script
@@ -18,7 +18,7 @@ CN=asmvmp1wss1.northeurope.cloudapp.azure.com
 
 VPNHOSTIP=$(dig -4 +short "$VPNHOST")
 VPNHOSTPIP=$(dig +short myip.opendns.com @resolver1.opendns.com)
-VPNIPPOOL="10.10.10.0/24"
+VPNIPPOOL="172.18.6.0/24"
 ETH0ORSIMILAR=$(ip route get 8.8.8.8 | awk -- '{printf $5}')
 IP=$(ifdata -pa $ETH0ORSIMILAR)
 
@@ -35,31 +35,32 @@ echo
 sudo apt-get install strongswan strongswan-pki libcharon-extra-plugins -y
 sudo apt-get upgrade 
 
-cd ~
+cd /
 sudo mkdir -p pki/private
 sudo mkdir -p pki/certs
 sudo mkdir -p pki/cacerts
-#chmod 700 pki
+# TODO change permissions to be more secure
+sudo chmod -R 777 /pki
 
 # 2 Create CA
 # create root key
-sudo ipsec pki --gen --type rsa --size 4096 --outform pem > ~/pki/private/ca-key.pem
+sudo ipsec pki --gen --type rsa --size 4096 --outform pem > /pki/private/ca-key.pem
 # create root CA
-sudo ipsec pki --self --ca --lifetime 3650 --in ~/pki/private/ca-key.pem --type rsa --dn "CN=VPN root CA" --outform pem > ~/pki/cacerts/ca-cert.pem
+sudo ipsec pki --self --ca --lifetime 3650 --in /pki/private/ca-key.pem --type rsa --dn "CN=VPN root CA" --outform pem > /pki/cacerts/ca-cert.pem
 # create server key
-sudo ipsec pki --gen --type rsa --size 4096 --outform pem > ~/pki/private/server-key.pem
+sudo ipsec pki --gen --type rsa --size 4096 --outform pem > /pki/private/server-key.pem
 
 # 3 Create certificate for VPN server
-sudo ipsec pki --pub --in ~/pki/private/server-key.pem --type rsa \
+sudo ipsec pki --pub --in /pki/private/server-key.pem --type rsa \
     | ipsec pki --issue --lifetime 1825 \
-        --cacert ~/pki/cacerts/ca-cert.pem \
-        --cakey ~/pki/private/ca-key.pem \
+        --cacert /pki/cacerts/ca-cert.pem \
+        --cakey /pki/private/ca-key.pem \
         --dn "CN=${CN}" --san "${IP}" \
         --flag serverAuth --flag ikeIntermediate --outform pem \
-    >  ~/pki/certs/server-cert.pem
+    >  /pki/certs/server-cert.pem
 
 # copy all certs 
-sudo cp -r ~/pki/* /etc/ipsec.d/
+sudo cp -r /pki/* /etc/ipsec.d/
 
 # 4 Configure strongSwan
 # iOS/Mac with appropriate configuration profiles use AES_GCM_16_256/PRF_HMAC_SHA2_256/ECP_521 
@@ -76,8 +77,6 @@ conn roadwarrior
   keyexchange=ikev2
   fragmentation=yes
   forceencaps=yes
-  ike=aes256gcm16-sha256-ecp521,aes256-sha256-ecp384!
-  esp=aes256gcm16-sha256,aes256gcm16-ecp384!
   dpdaction=clear
   dpddelay=300s
   rekey=no
@@ -103,6 +102,7 @@ user2 : EAP "password2"
 
 sudo systemctl restart strongswan
 
+# Edit sysctl.conf file
 sudo mv /etc/sysctl.conf /etc/sysctl.conf.original
 cp /etc/sysctl.conf /tmp/
 sudo cat >> /tmp/sysctl.conf << EOF
@@ -136,7 +136,7 @@ ip route | grep default
 # Need to put the CA cert on the client machine(s) (Computer Account on Windows, in Trusted Root Certification Authorities). Save as ca-cert.pem
 #cat /etc/ipsec.d/cacerts/ca-cert.pem
 
-
+# Edit before.rules file
 sudo mv /etc/ufw/before.rules /etc/ufw/before.rules.original
 echo "# rules.before
 #
